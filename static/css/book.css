@@ -1,0 +1,114 @@
+body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldest,legend,input,textarea,p,th,blockquote,td{
+    margin:0;padding:0;
+    outline: none;
+}
+a{
+    text-decoration: none;  
+    color:black;
+}
+ul{
+    list-style:none;
+}
+.top {
+	height: 2.7rem;
+	width: 5.0rem;
+	background-color: #F8F8F8;
+	overflow: hidden;
+}
+.top-setting{
+	height: 0.4rem;
+}
+.top-setting .goback {
+	margin: 0.233333rem;
+	height: 0.4rem;
+	width: 0.4rem;
+}
+.top-setting .goback i {
+	vertical-align: text-top;
+}
+.con {
+	width: 4rem;
+	margin: 0 auto;
+}
+.con .con-pic {
+	width: 1.333333rem;
+	height: 1.7777778rem;
+	background-color: #F4F4F4;
+	float: left;
+	margin-right: 0.266667rem;
+}
+.con .con-word {
+	float: left;
+}
+.con-word .title {
+	font-size: 18px;
+	margin-bottom: 0.133333rem;
+}
+.con-word .dowmload {
+	height: 0.366667rem;
+	width: 0.666667rem;
+	border-radius: 0.133333rem;
+	background-color: #FF9800;
+	line-height: 0.366667rem;
+	text-align: center;
+	font-size: 14px;
+	color: #fff;
+	margin-bottom: 0.133333rem;
+}
+.con-word .clasify {
+	font-size: 14px;
+	margin-bottom: 0.133333rem;
+}
+.con-word .wordnumber {
+	font-size: 14px;
+	color: #9d9d9d;
+}
+.brief{
+	border-bottom: 0.133333rem solid #F8F8F8;
+}
+.brief .brief-title, .coment .coment-title{
+	font-size: 18px;
+	padding: 0.233333rem;
+	padding-bottom: 0;
+}
+.brief .brief-content {
+	font-size: 14px;
+	color: #636363;
+	padding: 0.233333rem;
+	padding-bottom: 0.3;
+}
+.coment-content-in {
+	margin-top: 20px;
+	border-bottom: 0.013333rem solid #F8F8F8;
+	padding: 0.266667rem;
+	padding-top: 0;
+}
+.user {
+	width: 4.733333rem;
+	height: 0.666667rem;
+}
+.user-head {
+	width: 0.666667rem;
+	height: 0.666667rem;
+	border-radius: 50%;
+	background-color: #F8F8F8;
+	float: left;
+	margin-right: 0.133333rem;
+}
+.user-name {
+	float: left;
+	color: #0f47ce;
+	font-size: 14px;
+	height: 0.666667rem;
+	line-height: 0.666667rem;
+}
+.coment-content-in-word {
+	font-size: 14px;
+	padding-left: 0.8rem;
+	margin-bottom: 0.133333rem;
+}
+.coment .time {
+	padding-left: 0.8rem;
+	font-size: 14px;
+	color: #9d9d9d;
+}

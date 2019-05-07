@@ -1,0 +1,63 @@
+body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldest,legend,input,textarea,p,th,blockquote,td{
+    margin:0;padding:0;
+    outline: none;
+}
+a{
+    text-decoration: none;  
+    color:black;
+}
+ul{
+    list-style:none;
+}
+.content{
+	border-bottom: 1px solid #f8f8f8;
+	overflow: hidden;
+	padding: 10px 20px;
+}
+.userhead{
+	height: 0.533333rem;
+	width: 0.533333rem;
+	border-radius: 50%;
+	background-color: #f8f8f8;
+	float: left;
+	margin-right: 0.133333rem;
+}
+.nameandsignature{
+	float: left;
+}
+.username {
+	font-size: 14px;
+	color: #000;
+}
+.signature{
+	font-size: 12px;
+	color: #cecece;
+	width: 2.5rem;
+}
+.concern{
+	width: 0.866667rem;
+	height: 0.333333rem;
+	border-radius: 2px;
+	border: 1px solid #cecece;
+	float: right;
+	margin-top: 0.1rem;
+	font-size: 12px;
+	color: #848484;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+.hasconcern:before{
+	content: "\e61b";
+	font-family: "iconfont";
+}
+.hasconcern:after{
+	content: "已关注"
+}
+.notconcern{
+	color: #FF9800;
+	border: 0.013333rem solid #FF9800;
+}
+.notconcern:after{
+	content: "关注"
+}

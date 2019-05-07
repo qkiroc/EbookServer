@@ -1,0 +1,185 @@
+body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldest,legend,input,textarea,p,th,blockquote,td{
+    margin:0;padding:0;
+    outline: none;
+}
+a{
+    text-decoration: none;  
+    color:black;
+}
+ul{
+    list-style:none;
+}
+.content{
+	padding:0.266667rem;
+	border-bottom: 0.2rem solid #F8F8F8;
+}
+
+.content-top {
+	height: 0.666667rem;
+}
+.content-top .content-top-user {
+	float: left;
+	width: 2.5rem;
+}
+.content-top .content-top-user .content-top-user-head {
+	height: 0.666667rem;
+	width: 0.666667rem;
+	background-color: #F8F8F8;
+	border-radius: 50%;
+	float: left;
+	margin-right: 0.133333rem;
+}
+.content-top .content-top-user .content-top-user-name {
+	font-size: 14px;
+	margin-bottom: 0.066667rem;
+}
+.content-top .content-top-user .content-top-user-time {
+	font-size: 12px;
+	color: #7C7C7C;
+}
+.content-top .content-top-concern {
+	border-radius: 0.066667rem;
+	width: 1.066667rem;
+	height: 0.4rem;
+	border: 0.013333rem solid #FF9800;
+	color: #FF9800;
+	font-size: 14px;
+	line-height: 0.4rem;
+	text-align: center;
+	float: right;
+	margin-top: 0.12rem;
+}
+.content-top .content-top-notconcern:before{
+	content: " 关注";
+}
+.content-top .content-top-hasconcern {
+	border: 0.013333rem solid #d8d8d8;
+	color: #d8d8d8;
+}
+.content-top .content-top-hasconcern:before{
+	content: "\e61b";
+	font-family: "iconfont";
+	font-size: 16px;
+}
+.content-top .content-top-hasconcern:after{
+	content: " 已关注";
+}
+.content-user-word, .content-original-word{
+	font-size: 14px;
+	margin: 0.133333rem 0;
+}
+.bottom {
+	font-size: 14px;
+	color: #3a3a3a;
+	position: fixed;
+	bottom: 0;
+	height: 0.666667rem;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background-color: #f9f9f9;
+	width: 100%;
+	border-top: 1px solid #dcdcdc;
+}
+.bottom i{
+	display: inline-block;
+	transition: all 0.2s;
+	margin-right: 0.066667rem;
+}
+.bottom .share, .bottom .coment, .bottom .like{
+	float: left;
+	width: 1.466667rem;
+}
+.bottom .coment {
+	text-align: center;
+}
+.bottom .coment i{
+	vertical-align: middle;
+}
+.bottom .like {
+	text-align: right;
+}
+.like-active {
+	color: #FF9800;
+}
+.comenteditbg{
+	background-color: rgba(0, 0, 0, 0.5);
+	width: 100vw;
+	height: 100vh;
+	position: fixed;
+	top: 0;
+	left: 0;
+	display: none;
+}
+.comentedit{
+	position: fixed;
+	bottom: 0;
+	background-color: #f9f9f9;
+	width: 100%;
+}
+.comentedit-textarea{
+	height: 0.7rem;
+	width: 3.733333rem;
+	background-color: #fff;
+	border-radius: 2px;
+	resize: none;
+	border: 1px solid #dcdcdc;
+	padding: 0.133333rem;
+	font-size: 14px;
+	float: left;
+	margin: 0.133333rem;
+}
+.comentbt{
+	width: 0.566667rem;
+	height: 0.4rem;
+	line-height: 0.4rem;
+	text-align: center;
+	margin-top: 0.733333rem;
+	font-size: 16px;
+	float: left;
+	color: #2890A8;
+}
+.comments {
+	margin-bottom: 0.766667rem;
+}
+.comments-title{
+	padding: 0.266667rem;
+	font-size: 16px;
+}
+.comments-title-comment{
+	float: left;
+}
+.comments-title-like {
+	float: right;
+}
+.comment{
+	padding: 0.266667rem;
+	padding-top: 0.133333rem;
+	border-bottom: 1px solid #f8f8f8;
+}
+.comment-user{
+	display: flex;
+	align-items: center;
+	justify-content: flex-start;
+}
+.comment-userhead{
+	height: 0.533333rem;
+	width: 0.533333rem;
+	background-color: #F8F8F8;
+	border-radius: 50%;
+}
+.comment-username{
+	font-size: 14px;
+	color: #0f47ce;
+	margin-left: 0.133333rem;
+}
+.comment-word{
+	font-size: 14px;
+	margin-left: 0.666667rem;
+}
+.comment-time{
+	margin-top: 0.253333rem;
+	margin-left: 0.666667rem;
+	font-size: 12px;
+	color: #9d9d9d;
+}

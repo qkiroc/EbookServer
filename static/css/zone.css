@@ -1,0 +1,131 @@
+body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldest,legend,input,textarea,p,th,blockquote,td{
+    margin:0;padding:0;
+    outline: none;
+}
+a{
+    text-decoration: none;  
+    color:black;
+}
+ul{
+    list-style:none;
+}
+.ui-loader {
+	display: none;
+}
+.nav {
+	padding: 0.066667rem 0 0.066667rem 0.2rem;
+	border-bottom: 0.013333rem solid #F8F8F8;
+}
+.nav span {
+	color: #747373;
+	font-size: 16px;
+	padding: 0 0.133333rem;
+	transition: all 0.5s;
+}
+.nav .nav-active {
+	color: #000;
+	font-size: 18px;
+}
+.con {
+	width: 5.0rem;
+	overflow: hidden;
+}
+.con-in {
+	width: 10rem;
+	overflow: hidden;
+	transition: all 0.5s;
+}
+.con-find, .con-concern {
+	width: 5rem;
+	float: left;
+}
+.content {
+	padding: 0.266667rem;
+	overflow: hidden;
+	border-bottom: 0.133333rem solid #F8F8F8;
+}
+.content-top {
+	height: 0.666667rem;
+}
+.content-top .content-top-user {
+	float: left;
+	width: 2.5rem;
+}
+.content-top .content-top-user .content-top-user-head {
+	height: 0.666667rem;
+	width: 0.666667rem;
+	background-color: #F8F8F8;
+	border-radius: 50%;
+	float: left;
+	margin-right: 0.133333rem;
+}
+.content-top .content-top-user .content-top-user-name {
+	font-size: 14px;
+	margin-bottom: 0.066667rem;
+}
+.content-top .content-top-user .content-top-user-time {
+	font-size: 12px;
+	color: #7C7C7C;
+}
+.content-top .content-top-concern {
+	border-radius: 0.066667rem;
+	width: 1.066667rem;
+	height: 0.4rem;
+	border: 0.013333rem solid #FF9800;
+	color: #FF9800;
+	font-size: 14px;
+	line-height: 0.4rem;
+	text-align: center;
+	float: right;
+	margin-top: 0.12rem;
+}
+.content-top .content-top-notconcern:before{
+	content: " 关注";
+}
+.content-top .content-top-hasconcern {
+	border: 0.013333rem solid #d8d8d8;
+	color: #d8d8d8;
+}
+.content-top .content-top-hasconcern:before{
+	content: "\e61b";
+	font-family: "iconfont";
+	font-size: 16px;
+}
+.content-top .content-top-hasconcern:after{
+	content: " 已关注";
+}
+.content-footer {
+	font-size: 14px;
+	color: #C0C0C0;
+	margin-top: 0.533333rem;
+}
+.content-footer i{
+	display: inline-block;
+	transition: all 0.2s;
+	margin-right: 0.066667rem;
+}
+.content-footer .share, .content-footer .coment, .content-footer .like{
+	float: left;
+	width: 1.466667rem;
+}
+.content-footer .coment {
+	text-align: center;
+}
+.content-footer .coment i{
+	vertical-align: middle;
+}
+.content-footer .like {
+	text-align: right;
+}
+.like-active {
+	color: #FF9800;
+}
+.content-user-word, .content-original-word{
+	font-size: 14px;
+	margin: 0.133333rem 0;
+}
+.content-pic {
+	height: 1.333333rem;
+	width: 4.266667rem;
+	background-color: #F8F8F8;
+}

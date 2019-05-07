@@ -1,0 +1,109 @@
+body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldest,legend,input,textarea,p,th,blockquote,td{
+    margin:0;padding:0;
+    outline: none;
+}
+a{
+    text-decoration: none;  
+    color:black;
+}
+ul{
+    list-style:none;
+}
+.search {
+	height: 0.4rem;
+	width: 4.666667rem;
+	background: #F4F4F4;
+	border-radius: 0.066667rem;
+	line-height: 0.4rem;
+	margin: 0.133333rem auto;
+}
+.icon-sousuo {
+	color: #8E8E93;
+	font-size: 0.266667rem;
+	margin: 0.266667rem;
+	vertical-align: text-top;
+}
+.search div {
+	width: 3.566667rem;
+	display: inline-block;
+}
+.search-input {
+	height: 0.4rem;
+	border: 0;
+	background: rgba(0, 0, 0, 0);
+	outline: none;
+	vertical-align: text-top;
+	font-size: 16px;
+	color: #858585;
+}
+.nav {
+	height: 30px;
+	margin-left: 0.266667rem;
+}
+.nav span {
+	color: #747373;
+	font-size: 16px;
+	padding: 0 0.133333rem;
+	transition: all 0.5s;
+}
+.nav .nav-active {
+	color: #000;
+	font-size: 18px;
+}
+.con {
+	margin-top: 0.133333rem;
+	overflow-x: hidden;
+}
+.con-in {
+	width: 20rem;
+	overflow: hidden;
+	transition: all 0.5s;
+}
+.recommend, .novel, .masterwork, .magazine{
+	width: 5rem;
+	float: left;
+}
+.banner {
+	height: 1.6rem;
+	width: 4.666667rem;
+	background: #F4F4F4;
+	margin: 0.133333rem auto;
+	border-radius: 0.066667rem;
+}
+.book {
+	width: 4.666667rem;
+	overflow: hidden;
+	margin: 0.266667rem auto;
+}
+
+.book .pic {
+	width: 1.0rem;
+	height: 1.333333rem;
+	border-radius: 0.013333rem;
+	background-color: #F4F4F4;
+	float: left;
+	margin-right: 0.133333rem;
+}
+.book .word {
+	height: 1.333333rem;
+	width: 3.533333rem;
+	float: left;
+}
+.book .word .title {
+	margin-bottom: 0.143333rem;
+	font-size: 14px;
+}
+.book  .word .brief {
+	font-size: 12px;
+	color: #4B4B4B;
+	height: 0.48rem;
+	margin-bottom: 0.143333rem;
+}
+.book .word .author {
+	font-size: 12px;
+	color: #C5C5C5;
+
+}
+.ui-loader {
+	display: none;
+}
