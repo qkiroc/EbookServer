@@ -79,7 +79,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'ebook',
         'USER': 'root',
-        'PASSWORD': 'qinhaoyan945520.',
+        'PASSWORD': '***',
         'HOST': '',
         'POST': '',
     }
