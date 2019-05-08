@@ -8,12 +8,25 @@ class user(models.Model):
 	password = models.CharField(max_length = 30)
 	experience = models.CharField(max_length = 100)
 	userhead = models.CharField(max_length = 100)
+	interest = models.TextField()
 
 class book(models.Model):
 	title = models.CharField(max_length = 100)
 	btype = models.CharField(max_length = 20)
 	author = models.CharField(max_length = 20)
 	brief = models.TextField()
+
+class bookcomment(models.Model):
+	userid = models.CharField(max_length = 10)
+	username = models.CharField(max_length = 20)
+	userhead = models.CharField(max_length = 100)
+	bookid = models.CharField(max_length = 100)
+	time = models.CharField(max_length = 100)
+	coment = models.TextField()
+
+class booklike(models.Model):
+	userid = models.CharField(max_length = 10)
+	bookid = models.CharField(max_length = 100)
 
 class concern(models.Model):
 	concernuser = models.CharField(max_length = 10)

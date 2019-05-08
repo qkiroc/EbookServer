@@ -41,20 +41,127 @@ $.ajax({
 	}
 })
 $(".like").click(function(event) {
-	if(islike){
+	if(userid){
+		if(islike){
+			$.ajax({
+				url: '/notlike',
+				type: 'post',
+				dataType: 'json',
+				data: {
+					userid: userid,
+					idealid: bookidealid
+				},
+				success: (data)=>{
+					if(data.result == 1) {
+						$(this).removeClass('like-active');
+						$(".likecount").html(parseInt($(".likecount").html())-1);
+						islike=false;
+					}
+					else {
+						javaToJS.showToast("失败，请稍后再试！");
+					}
+				}
+			})
+		}
+		else {
+			$.ajax({
+				url: '/like',
+				type: 'post',
+				dataType: 'json',
+				data: {
+					userid: userid,
+					idealid: bookidealid
+				},
+				success: (data)=>{
+					if(data.result == 1){
+						$(this).children('i').css("transform", "scale(1.5)")
+						setTimeout(()=>{
+							$(this).children('i').css("transform", "scale(1)")
+						}, 200)
+						$(this).addClass('like-active')
+						islike= true;
+
+						$(".likecount").html(parseInt($(".likecount").html())+1);
+					}
+					else{
+						javaToJS.showToast("失败，请稍后再试！");
+					}
+				}
+			})
+		}
+	}
+	else {
+		javaToJS.showToast("请先登录");
+	}
+	
+});
+
+$(document).on("click", ".content .content-top-concern", function(event) {
+	if (userid){
+		if(isconcernflag){
+			$.ajax({
+				url: '/notconcern',
+				type: 'post',
+				dataType: 'json',
+				data: {
+					userid: userid,
+					concernedid: idealuserid
+				},
+				success: (data)=>{
+					if(data.result == 1){
+						$(this).removeClass("content-top-hasconcern")
+						       .addClass('content-top-notconcern')
+						isconcernflag = true;
+					}
+					else{
+						javaToJS.showToast("失败，请稍后再试！");
+					}
+				}
+			})
+			isconcernflag = false;
+		}
+		else {
+			$.ajax({
+				url: '/concern',
+				type: 'post',
+				dataType: 'json',
+				data: {
+					userid: userid,
+					concernedid: idealuserid
+				},
+				success: (data)=>{
+					if(data.result == 1){
+						$(this).removeClass("content-top-notconcern")
+						       .addClass('content-top-hasconcern')
+						isconcernflag = true;
+					}
+					else{
+						javaToJS.showToast("失败，请稍后再试！");
+					}
+				}
+			})
+		}
+	}
+	else {
+		javaToJS.showToast("请先登录");
+	}
+	
+});
+
+$(".share").click(function(event) {
+	if (userid){
 		$.ajax({
-			url: '/notlike',
+			url: '/publish',
 			type: 'post',
 			dataType: 'json',
 			data: {
 				userid: userid,
-				idealid: bookidealid
+				content: "(转发)"+$(".content-user-word").html(),
+				quote: $(".content-original-word").html()
 			},
-			success: (data)=>{
-				if(data.result == 1) {
-					$(this).removeClass('like-active');
-					$(".likecount").html(parseInt($(".likecount").html())-1);
-					islike=false;
+			success:data=>{
+				if(data.result == 1){
+					javaToJS.showToast("分享成功");
 				}
 				else {
 					javaToJS.showToast("失败，请稍后再试！");
@@ -63,103 +170,20 @@ $(".like").click(function(event) {
 		})
 	}
 	else {
-		$.ajax({
-			url: '/like',
-			type: 'post',
-			dataType: 'json',
-			data: {
-				userid: userid,
-				idealid: bookidealid
-			},
-			success: (data)=>{
-				if(data.result == 1){
-					$(this).children('i').css("transform", "scale(1.5)")
-					setTimeout(()=>{
-						$(this).children('i').css("transform", "scale(1)")
-					}, 200)
-					$(this).addClass('like-active')
-					islike= true;
-
-					$(".likecount").html(parseInt($(".likecount").html())+1);
-				}
-				else{
-					javaToJS.showToast("失败，请稍后再试！");
-				}
-			}
-		})
+		javaToJS.showToast("请先登录");
 	}
-});
-
-$(document).on("click", ".content .content-top-concern", function(event) {
-	if(isconcernflag){
-		$.ajax({
-			url: '/notconcern',
-			type: 'post',
-			dataType: 'json',
-			data: {
-				userid: userid,
-				concernedid: idealuserid
-			},
-			success: (data)=>{
-				if(data.result == 1){
-					$(this).removeClass("content-top-hasconcern")
-					       .addClass('content-top-notconcern')
-					isconcernflag = true;
-				}
-				else{
-					javaToJS.showToast("失败，请稍后再试！");
-				}
-			}
-		})
-		isconcernflag = false;
-	}
-	else {
-		$.ajax({
-			url: '/concern',
-			type: 'post',
-			dataType: 'json',
-			data: {
-				userid: userid,
-				concernedid: idealuserid
-			},
-			success: (data)=>{
-				if(data.result == 1){
-					$(this).removeClass("content-top-notconcern")
-					       .addClass('content-top-hasconcern')
-					isconcernflag = true;
-				}
-				else{
-					javaToJS.showToast("失败，请稍后再试！");
-				}
-			}
-		})
-	}
-});
-
-$(".share").click(function(event) {
-	$.ajax({
-		url: '/publish',
-		type: 'post',
-		dataType: 'json',
-		data: {
-			userid: userid,
-			content: "(转发)"+$(".content-user-word").html(),
-			quote: $(".content-original-word").html()
-		},
-		success:data=>{
-			if(data.result == 1){
-				javaToJS.showToast("分享成功");
-			}
-			else {
-				javaToJS.showToast("失败，请稍后再试！");
-			}
-		}
-	})
+	
 });
 
 $(".coment").click(function(event) {
-	$(".comenteditbg").fadeIn(10);
-	$(".comentedit-textarea").focus().val();
+	if(userid){
+		$(".comenteditbg").fadeIn(10);
+		$(".comentedit-textarea").focus().val();
+	}
+	else {
+		javaToJS.showToast("请先登录");
+	}
+	
 });
 $(".comenteditbg").click(function(event) {
 	$(this).fadeOut(10);
@@ -190,8 +214,6 @@ $(".comentbt").click(function(event) {
 				}
 			}
 		})
-	
-		
 	}
 	else {
 		//TODO
@@ -199,37 +221,37 @@ $(".comentbt").click(function(event) {
 });
 function getcomment(){
 	$.ajax({
-	url: '/getcomment',
-	type: 'get',
-	dataType: 'json',
-	data: {
-		bookidealid: bookidealid
-	},
-	success: re=>{
-		if(re.result == 1){
-			var comments = $("#comments");
-			comments.children().remove();
-			var j = 0;
-			re.data.forEach((data,i)=>{
-				j++;
-				var comment = `<div class="comment">
-									<div class="comment-user">
-										<div class="comment-userhead" style={background:${data.userhead}}>
+		url: '/getcomment',
+		type: 'get',
+		dataType: 'json',
+		data: {
+			bookidealid: bookidealid
+		},
+		success: re=>{
+			if(re.result == 1){
+				var comments = $("#comments");
+				comments.children().remove();
+				var j = 0;
+				re.data.forEach((data,i)=>{
+					j++;
+					var comment = `<div class="comment">
+										<div class="comment-user">
+											<div class="comment-userhead" style={background:${data.userhead}}>
+											</div>
+											<div class="comment-username">${data.username}</div>
 										</div>
-										<div class="comment-username">${data.username}</div>
-									</div>
-									<div class="comment-word">${data.coment}</div>
-									<div class="comment-time">${format(data.time)}</div>
-								</div>`
-				comments.append(comment);
-			})
-			$(".coments-count").html(j);
+										<div class="comment-word">${data.coment}</div>
+										<div class="comment-time">${format(data.time)}</div>
+									</div>`
+					comments.append(comment);
+				})
+				$(".coments-count").html(j);
+			}
+			else {
+				
+			}
 		}
-		else {
-			
-		}
-	}
-})
+	})
 }
 
 

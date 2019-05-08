@@ -16,31 +16,51 @@ ul{
 	overflow: hidden;
 }
 .top-setting{
-	height: 0.4rem;
+	overflow: hidden;
+	margin-bottom: 0.066667rem;
 }
-.top-setting .goback {
-	margin: 0.233333rem;
+.top-setting .goback, .want, .commend{
+	margin: 0.233333rem 0.133333rem;
+	margin-bottom: 0;
 	height: 0.4rem;
 	width: 0.4rem;
+	float: left;
 }
-.top-setting .goback i {
+.top-setting .want, .commend{
+	float: right;
+	margin-left: 0rem;
+}
+.top-setting .want {
+	margin-right: 0.133333rem;
+}
+.top-setting i {
 	vertical-align: text-top;
+	font-size: 0.25rem;
+	color: #828282;
 }
 .con {
 	width: 4rem;
 	margin: 0 auto;
+	overflow: hidden;
 }
 .con .con-pic {
 	width: 1.333333rem;
 	height: 1.7777778rem;
-	background-color: #F4F4F4;
+	background: url('/static/img/nocover.jpg');
+	background-size: 100% 100%;
 	float: left;
 	margin-right: 0.266667rem;
+	overflow: hidden;
+}
+.con .con-pic img{
+	width: 1.333333rem;
+	height: 1.7777778rem;
 }
 .con .con-word {
 	float: left;
 }
 .con-word .title {
+	max-width: 2.333333rem;
 	font-size: 18px;
 	margin-bottom: 0.133333rem;
 }
@@ -111,4 +131,47 @@ ul{
 	padding-left: 0.8rem;
 	font-size: 14px;
 	color: #9d9d9d;
+}
+.comenteditbg{
+	background-color: rgba(0, 0, 0, 0.5);
+	width: 100vw;
+	height: 100vh;
+	position: fixed;
+	top: 0;
+	left: 0;
+	display: none;
+}
+.comentedit{
+	position: fixed;
+	bottom: 0;
+	background-color: #f9f9f9;
+	width: 100%;
+}
+.comentedit-textarea{
+	height: 0.7rem;
+	width: 3.733333rem;
+	background-color: #fff;
+	border-radius: 2px;
+	resize: none;
+	border: 1px solid #dcdcdc;
+	padding: 0.133333rem;
+	font-size: 14px;
+	float: left;
+	margin: 0.133333rem;
+}
+.comentbt{
+	width: 0.566667rem;
+	height: 0.4rem;
+	line-height: 0.4rem;
+	text-align: center;
+	margin-top: 0.733333rem;
+	font-size: 16px;
+	float: left;
+	color: #2890A8;
+}
+.contentword {
+	color: #c7c7c7;
+	font-size: 14px;
+	text-align: center;
+	margin-top: 0.4rem;
 }

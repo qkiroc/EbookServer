@@ -1,13 +1,30 @@
 from django.shortcuts import render
 from django.http import HttpResponse,HttpResponseRedirect
+from django.core.paginator import Paginator
 import requests
-from ebookapp.models import user,concern,bookideal,like,comment
+from ebookapp.models import user,concern,bookideal,like,comment,book,bookcomment,booklike
 import random
 import json
 import time
 import pdb
 
 # Create your views here.
+def bookstore(request):
+	return render(request, 'bookstores.html')
+def bookHTML(request):
+	bookid = request.GET['bookid']
+	data = {}
+	try:
+		re = book.objects.get(id = bookid)
+		data = {
+			'title'  : re.title,
+			'btype'  : re.btype,
+			'author' : re.author,
+			'brief'  : re.brief
+		}
+	except Exception as e:
+		raise e
+	return render(request, 'book.html',data)
 def zone(request):
 	return render(request, 'zone.html')
 def concernHTML(request):
@@ -124,7 +141,7 @@ def changePWD(request):
 		result = 0
 	return HttpResponse(json.dumps({'result':result}),content_type="application/json") 
 
-def  publishBookIdeal(request):
+def publishBookIdeal(request):
 	userid = request.POST['userid']
 	content = request.POST['content']
 	quote = request.POST['quote']
@@ -344,3 +361,98 @@ def getFans(request):
 	except Exception as e:
 		return HttpResponse(json.dumps({'result':0}),content_type="application/json")
 
+def getBooks(request):
+	page = request.GET['page']
+	userid = request.GET['userid']
+	btype = request.GET['type']
+	datas = []
+	try:
+		if (btype == "all"):
+			if len(userid):
+				interest = user.objects.get(id = str(int(userid))).interest[0:-1].split(",")
+				if len(interest) == 0:
+					res = book.objects.filter(btype__in = interest).order_by("-id")
+				else:
+					res = book.objects.filter().order_by("-id")
+			else:
+				res = book.objects.filter().order_by("-id")
+		else:
+			res = book.objects.filter(btype = btype).order_by("-id")
+		pages = Paginator(res, 5)
+		if pages.num_pages < int(page):
+			return HttpResponse(json.dumps({'result':2}),content_type="application/json")
+		else:
+			for data in pages.page(page):
+				datas.append({
+						"id"    : data.id,
+						"title" : data.title,
+						"author": data.author,
+						"brief" : data.brief,
+						"type"  : data.btype
+					})
+			return HttpResponse(json.dumps({'result':1,"data":datas}),content_type="application/json")
+	except Exception as e:
+		return HttpResponse(json.dumps({'result':0,"data":datas}),content_type="application/json")
+
+def publishBookComment(request):
+	userid = request.POST['userid']
+	bookid = request.POST["bookid"]
+	coment = request.POST['coment']
+	timestamp = int(time.time() * 1000)
+	try:
+		usermsg = user.objects.get(id = str(int(userid)))
+		username = usermsg.username
+		userhead = usermsg.userhead
+		bookcomment.objects.create(userid = userid, 
+								   userhead = userhead,
+								   username = username,
+								   bookid = bookid,
+								   time = timestamp,
+								   coment = coment)
+		return HttpResponse(json.dumps({'result':1}),content_type="application/json")
+	except Exception as e:
+		return HttpResponse(json.dumps({'result':0}),content_type="application/json")
+
+def getBookComment(request):
+	bookid = request.GET["bookid"]
+	data = []
+	try:
+		res = bookcomment.objects.filter(bookid = bookid)
+		for re in res:
+			data.append({
+					"userid"   : re.userid, 
+				    "userhead" : re.userhead,
+				    "username" : re.username,
+				    "time"     : re.time,
+				    "coment"   : re.coment
+				}) 
+		return HttpResponse(json.dumps({'result':1,"data":data}),content_type="application/json")
+	except Exception as e:
+		return HttpResponse(json.dumps({'result':0}),content_type="application/json")
+
+def isBookLike(request):
+	try:
+		userid = request.POST['userid']
+		bookid = request.POST['bookid']
+		booklike.objects.get(userid = userid, bookid= bookid)
+		return HttpResponse(json.dumps({'result':1}),content_type="application/json")
+	except Exception as e:
+		return HttpResponse(json.dumps({'result':0}),content_type="application/json")
+
+def postBookLike(request):
+	userid = request.POST['userid']
+	bookid = request.POST['bookid']
+	try:
+		booklike.objects.create(userid = userid, bookid= bookid)
+		return HttpResponse(json.dumps({'result':1}),content_type="application/json")
+	except Exception as e:
+		return HttpResponse(json.dumps({'result':0}),content_type="application/json")
+
+def postBookNotLike(request):
+	userid = request.POST['userid']
+	bookid = request.POST['bookid']
+	try:
+		booklike.objects.filter(userid = userid, bookid= bookid).delete()
+		return HttpResponse(json.dumps({'result':1}),content_type="application/json")
+	except Exception as e:
+		return HttpResponse(json.dumps({'result':0}),content_type="application/json")

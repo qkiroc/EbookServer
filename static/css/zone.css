@@ -129,3 +129,9 @@ ul{
 	width: 4.266667rem;
 	background-color: #F8F8F8;
 }
+.contentword {
+	color: #c7c7c7;
+	font-size: 14px;
+	text-align: center;
+	margin-top: 0.4rem;
+}

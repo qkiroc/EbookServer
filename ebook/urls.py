@@ -19,6 +19,8 @@ from ebookapp import views
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
+    url(r'^bookstore', views.bookstore),
+    url(r'^bookhtml', views.bookHTML),
     url(r'^zone', views.zone),
     url(r'^concernhtml', views.concernHTML),
     url(r'^idealcontent',views.idealContent),
@@ -42,5 +44,13 @@ urlpatterns = [
     url(r'^getconcern$', views.getConcern),
     url(r'^getfans$', views.getFans),
     url(r'^getconcerncount', views.getConcernCount),
-    url(r'^getfanscount', views.getFansCount)
+    url(r'^getfanscount', views.getFansCount),
+    url(r'^getbooks', views.getBooks),
+    url(r'^publishbookcomment', views.publishBookComment),
+    url(r'^getbookcomment', views.getBookComment),
+    url(r'^isbooklike', views.isBookLike),
+    url(r'^postbooklike', views.postBookLike),
+    url(r'^postbooknotlike', views.postBookNotLike),
+
+
 ]
