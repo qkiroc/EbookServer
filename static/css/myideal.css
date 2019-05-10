@@ -9,139 +9,6 @@ a{
 ul{
     list-style:none;
 }
-.ui-loader {
-	display: none;
-}
-.nav {
-	padding: 0.066667rem 0 0.066667rem 0.2rem;
-	border-bottom: 0.013333rem solid #F8F8F8;
-}
-.nav span {
-	color: #747373;
-	font-size: 16px;
-	padding: 0 0.133333rem;
-	transition: all 0.5s;
-}
-.nav .nav-active {
-	color: #000;
-	font-size: 18px;
-}
-.con {
-	width: 5.0rem;
-	overflow: hidden;
-}
-.con-in {
-	width: 10rem;
-	overflow: hidden;
-	transition: all 0.5s;
-}
-.con-find, .con-concern {
-	width: 5rem;
-}
-.content {
-	padding: 0.266667rem;
-	overflow: hidden;
-	border-bottom: 0.133333rem solid #F8F8F8;
-}
-.content-top {
-	height: 0.666667rem;
-}
-.content-top .content-top-user {
-	float: left;
-	width: 2.5rem;
-}
-.content-top .content-top-user .content-top-user-head {
-	height: 0.666667rem;
-	width: 0.666667rem;
-	background:url('/static/img/defaultuserhead.png');
-	background-size: 100% 100%;
-	border-radius: 50%;
-	float: left;
-	margin-right: 0.133333rem;
-}
-.content-top .content-top-user .content-top-user-head-in {
-	height: 0.666667rem;
-	width: 0.666667rem;
-	background-size: 100% 100%;
-	border-radius: 50%;
-	margin-right: 0.133333rem;
-}
-.content-top .content-top-user .content-top-user-name {
-	font-size: 14px;
-	margin-bottom: 0.066667rem;
-}
-.content-top .content-top-user .content-top-user-time {
-	font-size: 12px;
-	color: #7C7C7C;
-}
-.content-top .content-top-concern {
-	border-radius: 0.066667rem;
-	width: 1.066667rem;
-	height: 0.4rem;
-	border: 0.013333rem solid #FF9800;
-	color: #FF9800;
-	font-size: 14px;
-	line-height: 0.4rem;
-	text-align: center;
-	float: right;
-	margin-top: 0.12rem;
-}
-.content-top .content-top-notconcern:before{
-	content: " 关注";
-}
-.content-top .content-top-hasconcern {
-	border: 0.013333rem solid #d8d8d8;
-	color: #d8d8d8;
-}
-.content-top .content-top-hasconcern:before{
-	content: "\e61b";
-	font-family: "iconfont";
-	font-size: 16px;
-}
-.content-top .content-top-hasconcern:after{
-	content: " 已关注";
-}
-.content-footer {
-	font-size: 14px;
-	color: #C0C0C0;
-	margin-top: 0.533333rem;
-}
-.content-footer i{
-	display: inline-block;
-	transition: all 0.2s;
-	margin-right: 0.066667rem;
-}
-.content-footer .share, .content-footer .coment, .content-footer .like{
-	float: left;
-	width: 1.466667rem;
-}
-.content-footer .coment {
-	text-align: center;
-}
-.content-footer .coment i{
-	vertical-align: middle;
-}
-.content-footer .like {
-	text-align: right;
-}
-.like-active {
-	color: #FF9800;
-}
-.content-user-word, .content-original-word{
-	font-size: 14px;
-	margin: 0.133333rem 0;
-}
-.content-pic {
-	height: 1.333333rem;
-	width: 4.266667rem;
-	background-color: #F8F8F8;
-}
-.contentword {
-	color: #c7c7c7;
-	font-size: 14px;
-	text-align: center;
-	margin-top: 0.4rem;
-}
 .loading{
     height: 0.1rem;
     margin: 0.133333rem auto 0.666667rem;
@@ -193,4 +60,105 @@ ul{
 	font-size: 12px;
 	background-color: #F8F8F8;
 	text-align: center;
+}
+.contentword {
+	color: #c7c7c7;
+	font-size: 14px;
+	text-align: center;
+	margin-top: 0.4rem;
+}
+.content {
+	position: relative;
+	padding: 0.266667rem;
+	overflow: hidden;
+	border-bottom: 0.133333rem solid #F8F8F8;
+}
+.content-top {
+	height: 0.666667rem;
+}
+.content-top .content-top-user {
+	float: left;
+	width: 2.5rem;
+}
+.content-top .content-top-user .content-top-user-head {
+	height: 0.666667rem;
+	width: 0.666667rem;
+	background:url('/static/img/defaultuserhead.png');
+	background-size: 100% 100%;
+	border-radius: 50%;
+	float: left;
+	margin-right: 0.133333rem;
+}
+.content-top .content-top-user .content-top-user-head-in {
+	height: 0.666667rem;
+	width: 0.666667rem;
+	background-size: 100% 100%;
+	border-radius: 50%;
+	margin-right: 0.133333rem;
+}
+.content-top .content-top-user .content-top-user-name {
+	font-size: 14px;
+	margin-bottom: 0.066667rem;
+}
+.content-top .content-top-user .content-top-user-time {
+	font-size: 12px;
+	color: #7C7C7C;
+}
+.content-top .content-top-concern {
+	border-radius: 0.066667rem;
+	width: 1.066667rem;
+	height: 0.4rem;
+	border: 0.013333rem solid #FF9800;
+	color: #FF9800;
+	font-size: 14px;
+	line-height: 0.4rem;
+	text-align: center;
+	float: right;
+	margin-top: 0.12rem;
+}
+.content-footer {
+	font-size: 14px;
+	color: #C0C0C0;
+	margin-top: 0.533333rem;
+}
+.content-footer i{
+	display: inline-block;
+	transition: all 0.2s;
+	margin-right: 0.066667rem;
+}
+.content-footer .share, .content-footer .coment, .content-footer .like{
+	float: left;
+	width: 1.466667rem;
+}
+.content-footer .coment {
+	text-align: center;
+}
+.content-footer .coment i{
+	vertical-align: middle;
+}
+.content-footer .like {
+	text-align: right;
+}
+.like-active {
+	color: #FF9800;
+}
+.content-user-word, .content-original-word{
+	font-size: 14px;
+	margin: 0.133333rem 0;
+}
+.content-pic {
+	height: 1.333333rem;
+	width: 4.266667rem;
+	background-color: #F8F8F8;
+}
+.delete {
+	height: 0.366667rem;
+	width: 0.366667rem;
+	position: absolute;
+	right: 0.253333rem;
+}
+.delete i {
+	vertical-align: text-top;
+	font-size: 0.266667rem;
+	color: #C0C0C0;
 }

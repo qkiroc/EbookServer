@@ -14,7 +14,9 @@ $.ajax({
 				re.data.forEach((data,i)=>{
 					var content = `
 							<div class="content">
-								<div class="userhead" style="background:${data.userhead}"></div>
+								<div class="userhead" >
+									<div class="userhead-in" style=background:url(${data.userhead})></div>
+								</div>
 								<div class="nameandsignature">
 									<div class="username">${data.username}</div>
 									<div class="signature">${data.signature}</div>
@@ -28,8 +30,6 @@ $.ajax({
 			else {
 				main.html(`<div class="contentword">暂时还没有内容...</div>`)
 			}
-			
-
 		}
 	}
 })

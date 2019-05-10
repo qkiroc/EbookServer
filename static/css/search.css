@@ -1,0 +1,136 @@
+body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldest,legend,input,textarea,p,th,blockquote,td{
+    margin:0;padding:0;
+    outline: none;
+}
+a{
+    text-decoration: none;  
+    color:black;
+}
+ul{
+    list-style:none;
+}
+.contentword {
+	color: #c7c7c7;
+	font-size: 14px;
+	text-align: center;
+	margin-top: 0.4rem;
+}
+.book {
+	width: 4.666667rem;
+	overflow: hidden;
+	margin: 0.266667rem auto;
+	text-align: left;
+}
+
+.book .pic {
+	width: 1.0rem;
+	height: 1.333333rem;
+	border-radius: 0.013333rem;
+	background: url('/static/img/nocover.jpg');
+	background-size: 100%;
+	float: left;
+	margin-right: 0.133333rem;
+	overflow: hidden;
+}
+.book .pic img {
+	width: 1.0rem;
+}
+.book .word {
+	height: 1.333333rem;
+	width: 3.533333rem;
+	float: left;
+}
+.book .word .title {
+	margin-bottom: 0.143333rem;
+	font-size: 14px;
+}
+.book  .word .brief {
+	font-size: 12px;
+	color: #4B4B4B;
+	margin-bottom: 0.143333rem;
+	overflow:hidden; 
+	text-overflow:ellipsis;
+	display:-webkit-box;
+	-webkit-box-orient:vertical;
+	-webkit-line-clamp:2; 
+}
+.book .word .author {
+	font-size: 12px;
+	color: #C5C5C5;
+
+}
+.loading{
+    height: 0.1rem;
+    margin: 0 auto 0.666667rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.loading span{
+    display: inline-block;
+    width: 0.12rem;
+    height: 0.12rem;
+    margin-right: 0.066667rem;
+    border-radius: 50%;
+    background: #c7c7c7;
+    -webkit-animation: load 1.04s ease infinite;
+}
+.loading span:last-child{
+    margin-right: 0px; 
+}
+@-webkit-keyframes load{
+    0%{
+        opacity: 1;
+        -webkit-transform: scale(1.3);
+    }
+    100%{
+        opacity: 0.2;
+        -webkit-transform: scale(.3);
+    }
+}
+.loading span:nth-child(1){
+    -webkit-animation-delay:0.13s;
+}
+.loading span:nth-child(2){
+    -webkit-animation-delay:0.26s;
+}
+.loading span:nth-child(3){
+    -webkit-animation-delay:0.39s;
+}
+.loading span:nth-child(4){
+    -webkit-animation-delay:0.52s;
+}
+.loading span:nth-child(5){
+    -webkit-animation-delay:0.65s;
+}
+.over {
+	display: none;
+	margin: 0.133333rem;
+	color: #c7c7c7;
+	font-size: 12px;
+	text-align: center;
+}
+.search {
+	height: 0.666667rem;
+	width: 100%;
+	position: relative;
+}
+.icon-sousuo {
+	font-size: 0.266667rem;
+	color: #ACACAC;
+	position: absolute;
+	top: 0.1rem;
+	left: 0.436667rem;
+}
+.search-input {
+	width: 4.533333rem;
+	height: 0.533333rem;
+	border-radius: 0.133333rem;
+	border: none;
+	background-color: #F8F8F8;
+	padding-left: 0.6rem;
+	box-sizing: border-box;
+	display: block;
+	margin: 0.066667rem auto;
+
+}

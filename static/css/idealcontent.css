@@ -165,8 +165,15 @@ ul{
 .comment-userhead{
 	height: 0.533333rem;
 	width: 0.533333rem;
-	background-color: #F8F8F8;
+	background:url('/static/img/defaultuserhead.png');
 	border-radius: 50%;
+	background-size: 100% 100%;
+}
+.comment-userhead-in{
+	height: 0.533333rem;
+	width: 0.533333rem;
+	border-radius: 50%;
+	background-size: 100% 100%;
 }
 .comment-username{
 	font-size: 14px;

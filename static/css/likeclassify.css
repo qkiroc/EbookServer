@@ -1,0 +1,86 @@
+body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldest,legend,input,textarea,p,th,blockquote,td{
+    margin:0;padding:0;
+    outline: none;
+}
+a{
+    text-decoration: none;  
+    color:black;
+}
+ul{
+    list-style:none;
+}
+body{
+	background-color: #F8F8F8;
+}
+.top{
+	background-color: #fff;
+	height: 0.666667rem;
+	border-bottom: 0.013333rem solid #EEEEEE;
+}
+.goback {
+	margin-left: 0.266667rem;
+	float: left;
+	height: 0.666667rem;
+	line-height: 0.666667rem
+}
+.button {
+	height: 0.666667rem;
+	line-height: 0.666667rem;
+	font-size: 16px;
+	color: #FF9800;
+	margin-right: 0.266667rem;
+	float: right;
+}
+.title {
+	height: 0.666667rem;
+	line-height: 0.666667rem;
+	font-size: 16px;
+	float: left;
+	margin-left: 0.133333rem;
+}
+.top i{
+	vertical-align: bottom;
+	font-size: 0.25rem;
+	color: #000;
+	display: inline-block;
+}
+.mine, .classify{
+	padding: 0.266667rem;
+	padding-bottom: 0;
+	
+}
+.mine-title, .classify-title{
+	font-size: 16px;
+	margin-bottom: 0.09667rem;
+}
+.mine-content, .classify-content{
+	display: flex;
+	flex-wrap: wrap;
+}
+.item {
+	position: relative;
+	height: 0.533333rem;
+	width: 0.96rem;
+	border-radius: 0.066667rem;
+	background-color: #fff;
+	font-size: 14px;
+	line-height: 0.533333rem;
+	text-align: center;
+	margin: 0.076667rem;
+}
+.classify-item:before{
+	content: "\e66f";
+	font-family: "iconfont";
+	color: #FF9800;
+	position: absolute;
+	top: -0.23rem;
+	right: -0.056667rem;
+}
+.mine-item:before{
+	content: "\e6c4";
+	font-family: "iconfont";
+	color: #b6b6b6;
+	position: absolute;
+	top: -0.23rem;
+	right: -0.056667rem;
+}

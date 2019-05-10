@@ -15,15 +15,22 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.conf.urls import url
+from django.views.static import serve
+from .settings import MEDIA_ROOT
 from ebookapp import views
 
 urlpatterns = [
+    url(r'^media/(?P<path>.*)$', serve, {"document_root":MEDIA_ROOT}),
     url(r'^admin/', admin.site.urls),
     url(r'^bookstore', views.bookstore),
     url(r'^bookhtml', views.bookHTML),
+    url(r'^search', views.search),
     url(r'^zone', views.zone),
     url(r'^concernhtml', views.concernHTML),
     url(r'^idealcontent',views.idealContent),
+    url(r'^myideal', views.myIdeal),
+    url(r'^wantread', views.wantRead),
+    url(r'^likeclassify', views.likeClassify),
     url(r'^login', views.login),
     url(r'^signin', views.signIn),
     url(r'^changesex', views.changeSex),
@@ -45,12 +52,19 @@ urlpatterns = [
     url(r'^getfans$', views.getFans),
     url(r'^getconcerncount', views.getConcernCount),
     url(r'^getfanscount', views.getFansCount),
+    url(r'^getbooksearch', views.getBookSearch),
     url(r'^getbooks', views.getBooks),
     url(r'^publishbookcomment', views.publishBookComment),
     url(r'^getbookcomment', views.getBookComment),
     url(r'^isbooklike', views.isBookLike),
     url(r'^postbooklike', views.postBookLike),
     url(r'^postbooknotlike', views.postBookNotLike),
-
+    url(r'^getmyideal', views.getMyIdeal),
+    url(r'^deleteideal', views.deleteIdeal),
+    url(r'^getwantread', views.getWantRead),
+    url(r'^postlikeclassify', views.postLikeClassify),
+    url(r'^getlikeclassify', views.getLikeClassify),
+    url(r'^changeuserhead', views.changeUserHead),
+    
 
 ]

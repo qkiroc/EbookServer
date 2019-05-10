@@ -1,5 +1,10 @@
 var userid = javaToJS.getUserid();
 var type = javaToJS.getType();
+var page = 1;
+var flag = true;
+var iscomplete = true;
+var $conFind = $("#con-find");
+getcontent(1)
 $(document).on("click", "#con-find .like", function (e){
 	if(userid){
 		if($(this).attr("data-flag") == "0") {
@@ -26,8 +31,6 @@ $(document).on("click", "#con-find .like", function (e){
 					}
 				}
 			})
-			
-			
 		}
 		else {
 			$.ajax({
@@ -119,64 +122,95 @@ $(document).on("click", "#con-find .share", function(){
 		javaToJS.showToast("请先登录");
 	}
 })
-var $conFind = $("#con-find");
-$.ajax({
-	url: '/get'+type+'bookideal',
-	type: 'get',
-	dataType: 'json',
-	data: {userid: userid},
-	success: function(result) {
-		if(result.length > 0){
-			result.forEach(function(data,i){
-				var content =`
-				<div class="content">
-					<div class="content-top">
-						<div class="content-top-user">
-							<div class="content-top-user-head" style={background:${data.userhead}}>
+
+function getcontent(p){
+	$.ajax({
+		url: '/get'+type+'bookideal',
+		type: 'get',
+		dataType: 'json',
+		data: {
+			userid: userid,
+			page: p
+		},
+		beforeSend: function(){
+			$(".loading").show();
+			iscomplete = false;
+		},
+		complete: function(){
+			$(".loading").hide();
+			iscomplete = true;
+		},
+		success: re=> {
+			if(re.result == 1){
+				if(re.data.length > 0){
+					re.data.forEach(function(data,i){
+						var content =`
+						<div class="content">
+							<div class="content-top">
+								<div class="content-top-user">
+									<div class="content-top-user-head" >
+										<div class="content-top-user-head-in" style=background-image:url(${data.userhead})></div>
+									</div>
+									<div class="content-top-user-name">${data.username}</div>
+									<div class="content-top-user-time">${format(data.time)}</div>
+								</div>
+								<div data-flag=${data.isconcern} 
+									 data-userid=${data.userid}
+									 style=display:${data.userid == userid||type=="concern"?"none":"block"} 
+									 class="content-top-concern ${!data.isconcern?"content-top-notconcern":"content-top-hasconcern"}"></div>
 							</div>
-							<div class="content-top-user-name">${data.username}</div>
-							<div class="content-top-user-time">${format(data.time)}</div>
+							<div class="content-word" data-id=${data.idealid}>
+								<div class="content-user-word">
+									${data.content}
+								</div>
+								<div class="content-original-word">
+									<span>${data.quote}</span>
+								</div>
+							</div>
+							<div class="content-footer">
+								<div class="share">
+									<div class="sharecontent" style ="display:none">${data.content}</div>
+									<div class="sharequote" style ="display:none">${data.quote}</div>
+									<i class="iconfont icon-fenxiang"></i>
+									<span>分享</span>
+								</div>
+								<div class="coment" data-id=${data.idealid}>
+									<i class="iconfont icon-pinglun"></i>
+									<span>评论</span>
+								</div>
+								<div data-id=${data.idealid} class="like ${data.islike?"like-active":""}" data-flag=${data.islike}>
+									<i class="iconfont icon-dianzan"></i>
+									<span class="likecount">${data.likecount}</span>
+								</div>
+							</div>
 						</div>
-						<div data-flag=${data.isconcern} 
-							 data-userid=${data.userid}
-							 style=display:${data.userid == userid||type=="concern"?"none":"block"} 
-							 class="content-top-concern ${!data.isconcern?"content-top-notconcern":"content-top-hasconcern"}"></div>
-					</div>
-					<div class="content-word" data-id=${data.idealid}>
-						<div class="content-user-word">
-							${data.content}
-						</div>
-						<div class="content-original-word">
-							<span>${data.quote}</span>
-						</div>
-					</div>
-					<div class="content-footer">
-						<div class="share">
-							<div class="sharecontent" style ="display:none">${data.content}</div>
-							<div class="sharequote" style ="display:none">${data.quote}</div>
-							<i class="iconfont icon-fenxiang"></i>
-							<span>分享</span>
-						</div>
-						<div class="coment" data-id=${data.idealid}>
-							<i class="iconfont icon-pinglun"></i>
-							<span>评论</span>
-						</div>
-						<div data-id=${data.idealid} class="like ${data.islike?"like-active":""}" data-flag=${data.islike}>
-							<i class="iconfont icon-dianzan"></i>
-							<span class="likecount">${data.likecount}</span>
-						</div>
-					</div>
-				</div>
-				`
-				$conFind.append(content);
-			})
+						`
+						$conFind.append(content);
+					})
+					page ++;
+				}
+				else{
+					$conFind.html(`<div class="contentword">暂时还没有内容...</div>`)
+				}
+				
+			}
+			else if (re.result == 2) {
+				$(".over").show();
+				flag = false;
+			}
+			else {
+				javaToJS.showToast("请求错误，请稍后再试");
+			}
+			
 		}
-		else {
-			$conFind.html(`<div class="contentword">暂时还没有内容...</div>`)
-		}
-		
+	})
+}
+function loadcontent() {
+	if (flag && iscomplete){
+		getcontent(page);
 	}
-})
+}
+
 function add0(m){return m<10?'0'+m:m }
 function format(timestamp)
 {	

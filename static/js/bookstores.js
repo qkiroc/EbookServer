@@ -1,5 +1,4 @@
-// var userid = javaToJS.getUserid();
-var userid = ''
+var userid = javaToJS.getUserid();
 var type = parseInt(window.location.href.split("=")[1]);
 var content = $('.content');
 var loading = $(".loading");
@@ -91,6 +90,9 @@ function getContent(p, type) {
 			else if(re.result == 2){
 				$(".over").show();
 				flag = false;
+			}
+			else {
+				javaToJS.showToast("请求错误，请稍后再试");
 			}
 		}
 	})	

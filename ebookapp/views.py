@@ -1,11 +1,14 @@
 from django.shortcuts import render
 from django.http import HttpResponse,HttpResponseRedirect
 from django.core.paginator import Paginator
+from django.db.models import Q
 import requests
 from ebookapp.models import user,concern,bookideal,like,comment,book,bookcomment,booklike
 import random
 import json
 import time
+from PIL import Image
+import os
 import pdb
 
 # Create your views here.
@@ -25,19 +28,26 @@ def bookHTML(request):
 	except Exception as e:
 		raise e
 	return render(request, 'book.html',data)
+def search(request):
+	return render(request, 'search.html')
 def zone(request):
 	return render(request, 'zone.html')
 def concernHTML(request):
 	return render(request, 'concern.html')
+def wantRead(request):
+	return render(request, 'wantread.html')
+def likeClassify(request):
+	return render(request, 'likeclassify.html')
 def idealContent(request):
 	idealid = request.GET['idealid']
 	data = {}
 	try:
 		re = bookideal.objects.get(id = idealid)
+		usermsg = user.objects.get(id = str(int(re.userid))) 
 		data = {
 			'userid'   : re.userid,
-			'username' : re.username,
-			'userhead' : re.userhead,
+			'username' : usermsg.username,
+			'userhead' : usermsg.userhead.name,
 			'time'     : re.time,
 			'content'  : re.content,
 			'quote'    : re.quote,
@@ -46,20 +56,20 @@ def idealContent(request):
 		return render(request, 'idealcontent.html',data)
 	except Exception as e:
 		raise e
+def myIdeal(request):
+	return render(request, 'myideal.html')
 
 def signIn(request):
 	username = request.POST['username']
 	password = request.POST['password']
 	re = 1
 	data = {}
-	#pdb.set_trace()
 	try:
 		result = user.objects.create(username = username, 
 								 password = password,
 								 experience = 0,
 								 signature = "这个人很懒，还没有设置签名",
-								 sex = 2,
-								 userhead = '')
+								 sex = 2)
 		data = {
 			'username'  : username,
 			'ebookid'   : str(result.id).zfill(10)
@@ -79,7 +89,7 @@ def login(request):
 			'experience': result.experience,
 			'signature' : result.signature,
 			'sex'       : result.sex,
-			'userhead'  : result.userhead
+			'userhead'  : "/media/"+result.userhead.name
 		}
 		return HttpResponse(json.dumps({'result':1,'data':data}),content_type="application/json")
 	except Exception as e:
@@ -149,8 +159,6 @@ def publishBookIdeal(request):
 	try:
 		usermsg = user.objects.get(id = str(int(userid)))
 		bookideal.objects.create(userid = userid,
-								 username = usermsg.username,
-								 userhead = usermsg.userhead,
 								 content = content,
 								 quote = quote,
 								 time = timestamp,
@@ -162,53 +170,108 @@ def publishBookIdeal(request):
 
 def getAllBookIdeal(request):
 	userid = request.GET['userid']
-	results = bookideal.objects.filter()
+	page = request.GET['page']
 	datas = []
-	for data in results:
-		isconcern = 0
-		islike = 0
-		buserid = data.userid
-		if (len(concern.objects.filter(concernuser = userid,concerneduser = buserid))):
-			isconcern = 1
-		if (len(like.objects.filter(userid = userid, bookidealid = data.id))):
-			islike = 1
-		datas.append({
-			'idealid'  : data.id,
-			"userid"   : data.userid,
-			'username' : data.username,
-			'userhead' : data.userhead,
-			'time'     : data.time,
-			'content'  : data.content,
-			'quote'    : data.quote,
-			'likecount': data.likecount,
-			'isconcern': isconcern,
-			'islike'   : islike
-			})
-	datas.reverse()
-	return HttpResponse(json.dumps(datas),content_type="application/json")
+	try:
+		results = bookideal.objects.filter().order_by("-time")
+		pages = Paginator(results,10)
+		if pages.num_pages < int(page):
+			return HttpResponse(json.dumps({'result':2}),content_type="application/json")
+		else:
+			for data in pages.page(page):
+				isconcern = 0
+				islike = 0
+				buserid = data.userid
+				if (len(concern.objects.filter(concernuser = userid,concerneduser = buserid))):
+					isconcern = 1
+				if (len(like.objects.filter(userid = userid, bookidealid = data.id))):
+					islike = 1
+				usermsg = user.objects.get(id = str(int(data.userid)))
+				datas.append({
+					'idealid'  : data.id,
+					"userid"   : data.userid,
+					'username' : usermsg.username,
+					'userhead' : "/media/"+usermsg.userhead.name,
+					'time'     : data.time,
+					'content'  : data.content,
+					'quote'    : data.quote,
+					'likecount': data.likecount,
+					'isconcern': isconcern,
+					'islike'   : islike
+					})
+			return HttpResponse(json.dumps({"result":1,"data":datas}),content_type="application/json")
+	except Exception as e:
+		return HttpResponse(json.dumps({"result":0}),content_type="application/json")
 
 def getConcernBookIdeal(request):
 	userid = request.GET['userid']
-	results = bookideal.objects.filter()
+	page = request.GET['page']
 	datas = []
-	for data in results:
-		islike = 0
-		buserid = data.userid
-		if (len(concern.objects.filter(concernuser = userid,concerneduser = buserid))):
-			if (len(like.objects.filter(userid = userid, bookidealid = data.id))):
-				islike = 1
-			datas.append({
-				'idealid'  : data.id,
-				'username' : data.username,
-				'userhead' : data.userhead,
-				'time'     : data.time,
-				'content'  : data.content,
-				'quote'    : data.quote,
-				'likecount': data.likecount,
-				'islike'   : islike
-				})
-	datas.reverse()
-	return HttpResponse(json.dumps(datas),content_type="application/json")
+	try:
+		results = bookideal.objects.filter().order_by("-time")
+		pages = Paginator(results,10)
+		if pages.num_pages < int(page):
+			return HttpResponse(json.dumps({'result':2}),content_type="application/json")
+		else:
+			for data in pages.page(page):
+				islike = 0
+				buserid = data.userid
+				if (len(concern.objects.filter(concernuser = userid,concerneduser = buserid))):
+					if (len(like.objects.filter(userid = userid, bookidealid = data.id))):
+						islike = 1
+					usermsg = user.objects.get(id = str(int(data.userid)))
+					datas.append({
+						'idealid'  : data.id,
+						'username' : usermsg.username,
+						'userhead' : "/media/"+usermsg.userhead.name,
+						'time'     : data.time,
+						'content'  : data.content,
+						'quote'    : data.quote,
+						'likecount': data.likecount,
+						'islike'   : islike
+						})
+			return HttpResponse(json.dumps({"result":1,"data":datas}),content_type="application/json")
+	except Exception as e:
+		return HttpResponse(json.dumps({"result":0}),content_type="application/json")
+	
+	
+
+def getMyIdeal(request):
+	userid = request.GET['userid']
+	page = request.GET['page']
+	datas = []
+	try:
+		res = bookideal.objects.filter(userid = userid).order_by("-time")
+		pages = Paginator(res, 10)
+		if pages.num_pages < int(page):
+			return HttpResponse(json.dumps({'result':2}),content_type="application/json")
+		else:
+			for data in pages.page(page):
+				islike = 0
+				if (len(like.objects.filter(userid = userid, bookidealid = data.id))):
+					islike = 1
+				usermsg = user.objects.get(id = str(int(data.userid)))
+				datas.append({
+						'idealid'  : data.id,
+						'username' : usermsg.username,
+						'userhead' : "/media/"+usermsg.userhead.name,
+						'time'     : data.time,
+						'content'  : data.content,
+						'quote'    : data.quote,
+						'likecount': data.likecount,
+						'islike'   : islike
+					})
+		return HttpResponse(json.dumps({"result":1,"data":datas}),content_type="application/json")
+	except Exception as e:
+		return HttpResponse(json.dumps({"result":0}),content_type="application/json")
+
+def deleteIdeal(request):
+	idealid = request.POST['idealid']
+	try:
+		bookideal.objects.filter(id = idealid).delete()
+		return HttpResponse(json.dumps({"result":1}),content_type="application/json")
+	except Exception as e:
+		return HttpResponse(json.dumps({"result":0}),content_type="application/json")
 
 def postLike(request):
 	userid = request.POST["userid"]
@@ -278,10 +341,7 @@ def publishComment(request):
 	try:
 		usermsg = user.objects.get(id = str(int(userid)))
 		username = usermsg.username
-		userhead = usermsg.userhead
 		comment.objects.create(userid = userid, 
-							   userhead = userhead,
-							   username = username,
 							   bookidealid = bookidealid,
 							   time = timestamp,
 							   coment = coment)
@@ -295,10 +355,11 @@ def getComment(request):
 	try:
 		res = comment.objects.filter(bookidealid = bookidealid)
 		for re in res:
+			usermsg = user.objects.get(id = str(int(re.userid)))
 			data.append({
 					"userid"   : re.userid, 
-				    "userhead" : re.userhead,
-				    "username" : re.username,
+				    "userhead" : "/media/"+usermsg.userhead.name,
+				    "username" : usermsg.username,
 				    "time"     : re.time,
 				    "coment"   : re.coment
 				}) 
@@ -332,7 +393,7 @@ def getConcern(request):
 			data.append({
 				    "userid"   : re.concerneduser,
 				    "username" : usermsg.username,
-				    "userhead" : usermsg.userhead,
+				    "userhead" : "/media/"+usermsg.userhead.name,
 				    "signature": usermsg.signature,
 				    "isconcern": 1
  				})
@@ -352,7 +413,7 @@ def getFans(request):
 			data.append({
 				    "userid"   : re.concernuser,
 				    "username" : usermsg.username,
-				    "userhead" : usermsg.userhead,
+				    "userhead" : "/media/"+usermsg.userhead.name,
 				    "signature": usermsg.signature,
 				    "isconcern": isconcern
  				})
@@ -369,8 +430,8 @@ def getBooks(request):
 	try:
 		if (btype == "all"):
 			if len(userid):
-				interest = user.objects.get(id = str(int(userid))).interest[0:-1].split(",")
-				if len(interest) == 0:
+				interest = user.objects.get(id = str(int(userid))).interest.split(",")
+				if len(interest) != 0 and interest[0] != '':
 					res = book.objects.filter(btype__in = interest).order_by("-id")
 				else:
 					res = book.objects.filter().order_by("-id")
@@ -378,7 +439,7 @@ def getBooks(request):
 				res = book.objects.filter().order_by("-id")
 		else:
 			res = book.objects.filter(btype = btype).order_by("-id")
-		pages = Paginator(res, 5)
+		pages = Paginator(res, 10)
 		if pages.num_pages < int(page):
 			return HttpResponse(json.dumps({'result':2}),content_type="application/json")
 		else:
@@ -402,10 +463,7 @@ def publishBookComment(request):
 	try:
 		usermsg = user.objects.get(id = str(int(userid)))
 		username = usermsg.username
-		userhead = usermsg.userhead
 		bookcomment.objects.create(userid = userid, 
-								   userhead = userhead,
-								   username = username,
 								   bookid = bookid,
 								   time = timestamp,
 								   coment = coment)
@@ -419,10 +477,11 @@ def getBookComment(request):
 	try:
 		res = bookcomment.objects.filter(bookid = bookid)
 		for re in res:
+			usermsg = user.objects.get(id = str(int(re.userid)))
 			data.append({
 					"userid"   : re.userid, 
-				    "userhead" : re.userhead,
-				    "username" : re.username,
+				    "userhead" : "/media/"+usermsg.userhead.name,
+				    "username" : usermsg.username,
 				    "time"     : re.time,
 				    "coment"   : re.coment
 				}) 
@@ -456,3 +515,86 @@ def postBookNotLike(request):
 		return HttpResponse(json.dumps({'result':1}),content_type="application/json")
 	except Exception as e:
 		return HttpResponse(json.dumps({'result':0}),content_type="application/json")
+
+def getWantRead(request):
+	userid = request.GET['userid']
+	page = request.GET['page']
+	datas = []
+	try:
+		res = booklike.objects.filter(userid = userid).order_by("-id")
+		pages = Paginator(res, 10)
+		if pages.num_pages < int(page):
+			return HttpResponse(json.dumps({'result':2}),content_type="application/json")
+		else:
+			for re in pages.page(page):
+				data = book.objects.get(id = re.bookid)
+				datas.append({
+						"id"    : data.id,
+						"title" : data.title,
+						"author": data.author,
+						"brief" : data.brief,
+						"type"  : data.btype
+					})
+		return HttpResponse(json.dumps({'result':1,"data":datas}),content_type="application/json")
+	except Exception as e:
+		return HttpResponse(json.dumps({'result':0}),content_type="application/json")
+
+def getLikeClassify(request):
+	userid = request.GET['userid']
+	try:
+		usermsg = user.objects.get(id = str(int(userid)))
+		items = usermsg.interest.split(",")
+		if items[0] == '':
+			items = []
+
+		return HttpResponse(json.dumps({'result':1,"data":items}),content_type="application/json")
+	except Exception as e:
+		return HttpResponse(json.dumps({'result':0}),content_type="application/json")
+
+def postLikeClassify(request):
+	userid = request.POST["userid"]
+	items = request.POST['items']
+	try:
+		usermsg = user.objects.get(id = str(int(userid)))
+		usermsg.interest = items;
+		usermsg.save()
+		return HttpResponse(json.dumps({'result':1}),content_type="application/json")
+	except Exception as e:
+		return HttpResponse(json.dumps({'result':0}),content_type="application/json")
+
+def getBookSearch(request):
+	keyword = request.GET['keyword']
+	page = request.GET['page']
+	datas = []
+	try:
+		res = book.objects.filter(Q(title__icontains=keyword) | Q(brief__icontains=keyword))
+		pages = Paginator(res, 10)
+		if pages.num_pages < int(page):
+			return HttpResponse(json.dumps({'result':2}),content_type="application/json")
+		else:
+			for data in pages.page(page):
+				datas.append({
+						"id"    : data.id,
+						"title" : data.title,
+						"author": data.author,
+						"brief" : data.brief,
+						"type"  : data.btype
+					})
+			return HttpResponse(json.dumps({'result':1,"data":datas}),content_type="application/json")
+	except Exception as e:
+		return HttpResponse(json.dumps({'result':0}),content_type="application/json")
+
+def changeUserHead(request):
+	img = request.POST['img']
+	userid = request.POST['userid']
+	import base64
+	from django.core.files.base import ContentFile
+	userhead = base64.b64decode(img)
+	file_content = ContentFile(userhead)	
+	try:
+		usermsg = user.objects.get(id = str(int(userid)))
+		usermsg.userhead.save(userid+".jpg",file_content)
+		return HttpResponse("/media/"+usermsg.userhead.name,content_type="application/json")
+	except Exception as e:
+		return HttpResponse(json.dumps({'result':0}),content_type="application/json")
+	
