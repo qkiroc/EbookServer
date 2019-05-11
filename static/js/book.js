@@ -136,8 +136,8 @@ function getcomment(){
 					j++;
 					var comment = `<div class="coment-content-in">
 										<div class="user">
-											<div class="user-head" style={background:${data.userhead}>
-												
+											<div class="user-head" >
+												<div class="user-head-in" style=background:url(${data.userhead})></div>
 											</div>
 											<div class="user-name">
 												${data.username}

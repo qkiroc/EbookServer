@@ -67,3 +67,6 @@ function search(key) {
 	content.children().remove()
 	getcontent(1, keyword);
 }
+$(document).on('click',".content .book",function(){
+	javaToJS.toContent($(this).attr("data-id"));
+})

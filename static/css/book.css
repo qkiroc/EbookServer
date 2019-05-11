@@ -111,9 +111,17 @@ ul{
 	width: 0.666667rem;
 	height: 0.666667rem;
 	border-radius: 50%;
-	background-color: #F8F8F8;
+	background: url('/static/img/defaultuserhead.png');
 	float: left;
 	margin-right: 0.133333rem;
+	overflow: hidden;
+	background-size: 100% 100%;
+}
+.user-head-in{
+	width: 0.666667rem;
+	height: 0.666667rem;
+	border-radius: 50%;
+	background-size: 100% 100%;
 }
 .user-name {
 	float: left;

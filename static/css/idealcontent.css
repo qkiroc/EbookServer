@@ -24,10 +24,18 @@ ul{
 .content-top .content-top-user .content-top-user-head {
 	height: 0.666667rem;
 	width: 0.666667rem;
-	background-color: #F8F8F8;
+	background: url('/static/img/defaultuserhead.png');
 	border-radius: 50%;
 	float: left;
 	margin-right: 0.133333rem;
+	background-size: 100% 100%;
+}
+.content-top .content-top-user .content-top-user-head-in{
+	height: 0.666667rem;
+	width: 0.666667rem;
+	border-radius: 50%;
+	margin-right: 0.133333rem;
+	background-size: 100% 100%;
 }
 .content-top .content-top-user .content-top-user-name {
 	font-size: 14px;

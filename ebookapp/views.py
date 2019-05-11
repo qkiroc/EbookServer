@@ -99,7 +99,6 @@ def changeSex(request):
 	userid = request.POST['userid']
 	sex = request.POST['sex']
 	userid = str(int(userid))
-	pdb.set_trace()
 	result = 1
 	try:
 		re = user.objects.get(id = userid)

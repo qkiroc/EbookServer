@@ -1,4 +1,4 @@
-var userid = "0000000022";
+var userid = javaToJS.getUserid();
 var page = 1;
 var flag = true;
 var iscomplete = true;
