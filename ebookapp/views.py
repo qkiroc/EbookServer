@@ -47,7 +47,7 @@ def idealContent(request):
 		data = {
 			'userid'   : re.userid,
 			'username' : usermsg.username,
-			'userhead' : usermsg.userhead.name,
+			'userhead' : "/media/"+usermsg.userhead.name,
 			'time'     : re.time,
 			'content'  : re.content,
 			'quote'    : re.quote,
