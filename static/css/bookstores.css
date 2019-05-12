@@ -19,6 +19,10 @@ ul{
 	background: #F4F4F4;
 	margin: 0.133333rem auto;
 	border-radius: 0.066667rem;
+	overflow: hidden;
+}
+.banner img {
+	height: 1.62rem;
 }
 .contentword {
 	color: #c7c7c7;

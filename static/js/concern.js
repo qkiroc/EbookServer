@@ -15,7 +15,7 @@ $.ajax({
 					var content = `
 							<div class="content">
 								<div class="userhead" >
-									<div class="userhead-in" style=background:url(${data.userhead})></div>
+									<div class="userhead-in" style=background-image:url(${data.userhead})></div>
 								</div>
 								<div class="nameandsignature">
 									<div class="username">${data.username}</div>

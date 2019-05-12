@@ -137,7 +137,7 @@ function getcomment(){
 					var comment = `<div class="coment-content-in">
 										<div class="user">
 											<div class="user-head" >
-												<div class="user-head-in" style=background:url(${data.userhead})></div>
+												<div class="user-head-in" style=background-image:url(${data.userhead})></div>
 											</div>
 											<div class="user-name">
 												${data.username}
